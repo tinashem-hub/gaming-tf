@@ -62,7 +62,7 @@ jobs:
 
     - name: Update ECS service
       run: |
-        aws ecs update-service --cluster env.ECS_CLUSTER --service env.ECS_SERVICE --task-definition file:env.ECS_TASK_DEFINITION
+        aws ecs update-service --cluster env.ECS_CLUSTER --service env.ECS_SERVICE --task-definition env.ECS_TASK_DEFINITION
 
     - name: Login to Amazon ECR
       id: login-ecr
