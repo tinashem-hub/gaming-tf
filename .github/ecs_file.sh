@@ -3,7 +3,7 @@
 # Replace these with your actual values
 CLUSTER_NAME=gaming-app
 SERVICE_NAME=gaming-service
-TASK_DEFINITION_NAME=./task-definition.json
+TASK_DEFINITION_NAME=task-definition
 CONTAINER_NAME=gamers
 IMAGE_NAME=lugz
 CONTAINER_PORT=80
