@@ -62,7 +62,8 @@ jobs:
 
     - name: Update ECS service
       run: |
-        aws ecs update-service --cluster gaming-app --service gaming-service --task-definition .aws/task-definition.json
+        ./.github/ecs_file.sh
+      shell: bash
 
     - name: Login to Amazon ECR
       id: login-ecr
