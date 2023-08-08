@@ -3,7 +3,7 @@
 # Replace these with your actual values
 CLUSTER_NAME=gaming-app
 SERVICE_NAME=gaming-service
-TASK_DEFINITION_NAME=task-definition.json
+TASK_DEFINITION_NAME=./task-definition.json
 CONTAINER_NAME=gamers
 IMAGE_NAME=lugz
 CONTAINER_PORT=80
@@ -13,13 +13,24 @@ DESIRED_COUNT=2
 aws ecs create-cluster --cluster-name "$CLUSTER_NAME"
 
 # Create Task Definition
-TASK_DEFINITION=$(aws ecs create-task-definition \
-  --family "$TASK_DEFINITION_NAME" \
-  --container-definitions "[{\"name\": \"$CONTAINER_NAME\", \"image\": \"$IMAGE_NAME\", \"portMappings\": [{\"containerPort\": $CONTAINER_PORT}]}]"
-)
+ # Create Task Definition JSON
+echo '{
+  "family": "'$ECS_TASK_DEFINITION'",
+  "containerDefinitions": [
+    {
+      "name": "'$CONTAINER_NAME'",
+      "image": "'$ECR_REPOSITORY'",
+      "portMappings": [
+        {
+          "containerPort": 80
+        }
+      ]
+    }
+  ]
+}' > $ECS_TASK_DEFINITION
 
-# Extract Task Definition ARN
-TASK_DEFINITION_ARN=$(echo "$TASK_DEFINITION" | jq -r '.taskDefinition.taskDefinitionArn')
+# Register ECS Task Definition
+ECS_TASK_DEFINITION_ARN=$(aws ecs register-task-definition --cli-input-json file://$ECS_TASK_DEFINITION | grep "taskDefinitionArn" | cut -d'"' -f4)
 
 # Create ECS Service
 aws ecs create-service \
