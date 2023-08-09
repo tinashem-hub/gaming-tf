@@ -3,7 +3,7 @@
 # Define variables 
 ECS_CLUSTER_NAME=gaming-app
 ECS_SERVICE_NAME=gaming-service
-ECS_TASK_DEFINITION_FILE=.github/workflow/gaming-td.json
+ECS_TASK_DEFINITION_FILE=.github/workflows/gaming-td.json
 AWS_REGION=us-east-1
 
 # Create ECS cluster
