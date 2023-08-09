@@ -1,43 +1,19 @@
 #!/bin/bash
 
-# Replace these with your actual values
-CLUSTER_NAME=gaming-app
-SERVICE_NAME=gaming-service
-TASK_DEFINITION_NAME=task-definition
-CONTAINER_NAME=gamers
-IMAGE_NAME=lugz
-CONTAINER_PORT=80
-DESIRED_COUNT=2
+# Define variables 
+ECS_CLUSTER_NAME=gaming-app
+ECS_SERVICE_NAME=gaming-service
+ECS_TASK_DEFINITION_FILE=.github/workflow/gaming-td.json
+AWS_REGION=us-east-1
 
 # Create ECS cluster
-aws ecs create-cluster --cluster-name "$CLUSTER_NAME"
+aws ecs create-cluster --cluster-name $ECS_CLUSTER_NAME --region $AWS_REGION
 
-# Create Task Definition
- # Create Task Definition JSON
-echo '{
-  "family": "'$ECS_TASK_DEFINITION'",
-  "containerDefinitions": [
-    {
-      "name": "'$CONTAINER_NAME'",
-      "image": "'$ECR_REPOSITORY'",
-      "portMappings": [
-        {
-          "containerPort": 80
-        }
-      ]
-    }
-  ]
-}' > $ECS_TASK_DEFINITION
+# Register ECS task definition
+ecs_task_definition=$(aws ecs register-task-definition --cli-input-json file://$ECS_TASK_DEFINITION_FILE --region $AWS_REGION)
+task_definition_arn=$(echo $ecs_task_definition | jq -r '.taskDefinition.taskDefinitionArn')
 
-# Register ECS Task Definition
-ECS_TASK_DEFINITION_ARN=$(aws ecs register-task-definition --cli-input-json file://$ECS_TASK_DEFINITION | grep "taskDefinitionArn" | cut -d'"' -f4)
+# Create ECS service
+aws ecs create-service --cluster $ECS_CLUSTER_NAME --service-name $ECS_SERVICE_NAME --task-definition $task_definition_arn --desired-count 1 --launch-type EC2 --region $AWS_REGION
 
-# Create ECS Service
-aws ecs create-service \
-  --cluster "$CLUSTER_NAME" \
-  --service-name "$SERVICE_NAME" \
-  --task-definition "$TASK_DEFINITION_ARN" \
-  --desired-count $DESIRED_COUNT \
-  --launch-type EC2
 
-echo "ECS cluster, service, and task definition created successfully!"
