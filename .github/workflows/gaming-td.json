@@ -2,8 +2,9 @@
     "family": "gaming-app-task",
     "containerDefinitions": [
       {
-        "name": "gamers", 
+        "name": "gamers",
         "image": "nginx:latest",
+        "memory": 512,         
         "essential": true,
         "portMappings": [
           {
@@ -29,4 +30,5 @@
       }
     ]
   }
+  
   
