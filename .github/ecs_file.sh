@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Check if jq is installed
+### 
 if ! command -v jq &> /dev/null; then
     echo "jq command not found. Please install jq before running this script."
     exit 1
@@ -29,3 +30,5 @@ until [ "$(aws ecs describe-services --cluster $ECS_CLUSTER_NAME --services $ECS
 done
 
 echo "Service is now stable."
+
+###
