@@ -1,6 +1,12 @@
 #!/bin/bash
 
-# Define variables 
+# Check if jq is installed
+if ! command -v jq &> /dev/null; then
+    echo "jq command not found. Please install jq before running this script."
+    exit 1
+fi
+
+# Define variables
 ECS_CLUSTER_NAME=gaming-app
 ECS_SERVICE_NAME=gaming-service
 ECS_TASK_DEFINITION_FILE=.github/workflows/gaming-td.json
