@@ -1,0 +1,43 @@
+---
+- name: Setup and Deploy Docker App
+  hosts: all
+  gather_facts: true
+  become: yes
+
+  vars:
+    app_name: gamers
+
+  tasks:
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start and Enable Docker Service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+
+    - name: Download Source Code Files
+      git:
+        repo: https://github.com/tinashem-hub/gaming.git
+        dest: /home/ec2-user/gamers
+
+    - name: Build Docker Image
+      docker_image:
+        name: "{{ app_name }}_image"
+        path: /home/ec2-user/gamers
+        state: build
+
+    - name: Run Docker Container
+      docker_container:
+        name: "{{ app_name }}_container"
+        image: "{{ app_name }}_image"
+        state: started
