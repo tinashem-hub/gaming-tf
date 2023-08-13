@@ -1,16 +1,16 @@
 {
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:954354975057:task-definition/gamers-td:7",
     "containerDefinitions": [
         {
             "name": "gamers",
-            "image": "954354975057.dkr.ecr.us-east-1.amazonaws.com/tina-gaming:fe0326a484ace4b9462a0bd1106532320c554741",
+            "image": "954354975057.dkr.ecr.us-east-1.amazonaws.com/tina-gaming",
             "cpu": 0,
-            "memory": 1024,
             "portMappings": [
                 {
-                    "name": "gamers-80-tcp",
                     "containerPort": 80,
                     "hostPort": 80,
                     "protocol": "tcp",
+                    "name": "gamers-80-tcp",
                     "appProtocol": "http"
                 }
             ],
@@ -36,17 +36,54 @@
     "taskRoleArn": "arn:aws:iam::954354975057:role/Rentzone-task-execution-role",
     "executionRoleArn": "arn:aws:iam::954354975057:role/Rentzone-task-execution-role",
     "networkMode": "awsvpc",
+    "revision": 7,
     "volumes": [],
-    "requiresCompatibilities": [
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
         "FARGATE"
     ],
-    "cpu": "1024",
-    "memory": "2048",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
-    }
+    },
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "registeredAt": "2023-08-13T09:37:30.666000+01:00",
+    "registeredBy": "arn:aws:iam::954354975057:root"
 }
-
   
   
