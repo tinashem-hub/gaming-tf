@@ -1,28 +1,56 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:954354975057:task-definition/gaming-td:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:954354975057:task-definition/game-td:1",
     "containerDefinitions": [
         {
             "name": "gaming",
             "image": "954354975057.dkr.ecr.us-east-1.amazonaws.com/gaming",
             "cpu": 0,
-            "portMappings": [],
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "name": "gaming-80-tcp",
+                    "appProtocol": "http"
+                }
+            ],
             "essential": true,
             "environment": [],
             "environmentFiles": [],
             "mountPoints": [],
-            "volumesFrom": []
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/game-td",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            }
         }
     ],
-    "family": "gaming-td",
-    "taskRoleArn": "arn:aws:iam::954354975057:role/game-app-role",
-    "executionRoleArn": "arn:aws:iam::954354975057:role/game-app-role",
+    "family": "game-td",
+    "taskRoleArn": "arn:aws:iam::954354975057:role/GitHub-demo",
+    "executionRoleArn": "arn:aws:iam::954354975057:role/GitHub-demo",
     "networkMode": "awsvpc",
     "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
         {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
             "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
         },
         {
             "name": "com.amazonaws.ecs.capability.task-iam-role"
@@ -35,6 +63,9 @@
         },
         {
             "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
         }
     ],
     "placementConstraints": [],
@@ -51,8 +82,7 @@
     ],
     "cpu": "256",
     "memory": "512",
-    "registeredAt": "2023-08-16T01:01:00.140000+01:00",
+    "registeredAt": "2023-08-17T19:54:49.623000+01:00",
     "registeredBy": "arn:aws:iam::954354975057:root"
 }
-  
   
