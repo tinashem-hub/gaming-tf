@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:954354975057:task-definition/game-td:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:954354975057:task-definition/gaming-Td:1",
     "containerDefinitions": [
         {
             "name": "gaming",
@@ -24,7 +24,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/game-td",
+                    "awslogs-group": "/ecs/gaming-Td",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
@@ -32,7 +32,7 @@
             }
         }
     ],
-    "family": "game-td",
+    "family": "gaming-Td",
     "taskRoleArn": "arn:aws:iam::954354975057:role/GitHub-demo",
     "executionRoleArn": "arn:aws:iam::954354975057:role/GitHub-demo",
     "networkMode": "awsvpc",
@@ -82,7 +82,7 @@
     ],
     "cpu": "256",
     "memory": "512",
-    "registeredAt": "2023-08-17T19:54:49.623000+01:00",
+    "registeredAt": "2023-08-27T07:29:43.114000+01:00",
     "registeredBy": "arn:aws:iam::954354975057:root"
 }
   
