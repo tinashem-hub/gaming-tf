@@ -72,7 +72,7 @@ resource "aws_ecs_service" "game-app-service" {
 
   network_configuration {
     subnets = ["subnet-0340f1a6cd80d7608", "subnet-0340f1a6cd80d7608"]  # Replace with your subnet IDs
-    security_groups = ["sg-07c4365745fc7f6ef"]  # Replace with your security group IDs
+    security_groups = ["sg-07c4365745fc7f6ef"]  # Replace with your security group IDss
   }
 }
 
