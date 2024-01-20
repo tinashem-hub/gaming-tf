@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "game-app-service" {
   network_mode             = "bridge"
   requires_compatibilities = ["FARGATE"]  # Update if using EC2 launch type
 
-  container_definitions = data.template_file.ecs_task_definition.rendered
+  container_definitions = file("${path.module}/.github/workflows/task_defination.json")
 }
 
 resource "aws_ecs_service" "game-app-service" {
