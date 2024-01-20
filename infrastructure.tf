@@ -20,11 +20,14 @@ resource "aws_ecs_task_definition" "game-app-service" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
 
+  cpu                      = 256  # Specify the CPU at the task level
+  memory                   = 512  # Adjust memory as needed
+
   container_definitions = jsonencode([
     {
       "name"            = "gaming",
       "image"           = "954354975057.dkr.ecr.us-east-1.amazonaws.com/gaming",
-      "cpu"             = 256,  # Adjust as needed
+      "cpu"             = 0,  # Remove this line from the container definition
       "memory"          = 512,
       "portMappings"    = [
         {
@@ -59,6 +62,7 @@ resource "aws_ecs_task_definition" "game-app-service" {
   task_role_arn      = "arn:aws:iam::954354975057:role/GitHub-demo"
   tags               = {}  # Add tags as needed
 }
+
 
 resource "aws_ecs_service" "game-app-service" {
   name            = "game-app-service"
