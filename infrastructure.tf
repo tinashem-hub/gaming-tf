@@ -12,7 +12,7 @@ resource "aws_ecs_cluster" "gaming-cluster" {
 
 # Read the ECS task definition JSON file
 data "template_file" "ecs_task_definition" {
-  template = file("${path.module}/.gib/workflows/task_defination.json")
+  template = file("${path.module}/.github/workflows/task_defination.json")
 }
 
 resource "aws_ecs_task_definition" "game-app-service" {
