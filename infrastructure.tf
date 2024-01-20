@@ -15,10 +15,6 @@ data "template_file" "ecs_task_definition" {
   template = file("${path.module}/.github/workflows/task_defination.json")
 }
 
-provider "aws" {
-  region = "us-east-1"  # Replace with your desired AWS region
-}
-
 resource "aws_ecs_task_definition" "game-app-service" {
   family                   = "gaming-Td"
   network_mode             = "awsvpc"
