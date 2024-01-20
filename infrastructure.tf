@@ -16,12 +16,46 @@ data "template_file" "ecs_task_definition" {
 }
 
 resource "aws_ecs_task_definition" "game-app-service" {
-  family                   = "game-app-service"
-  network_mode             = "bridge"
+  family                   = "gaming-Td"
+  network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]  # Update if using EC2 launch type
 
-  container_definitions = file("${path.module}/.github/workflows/task_defination.json")
+  container_definitions = jsonencode([
+    {
+      "name"            = "gaming",
+      "image"           = "954354975057.dkr.ecr.us-east-1.amazonaws.com/gaming",
+      "cpu"             = 0,
+      "portMappings"    = [
+        {
+          "name"          = "gaming-80-tcp",
+          "containerPort" = 80,
+          "hostPort"      = 80,
+          "protocol"      = "tcp",
+          "appProtocol"   = "http",
+        },
+      ],
+      "essential"       = true,
+      "environment"     = [],
+      "environmentFiles" = [],
+      "mountPoints"     = [],
+      "volumesFrom"     = [],
+      "ulimits"         = [],
+      "logConfiguration" = {
+        "logDriver" = "awslogs",
+        "options"   = {
+          "awslogs-create-group"       = "true",
+          "awslogs-group"              = "/ecs/gaming-Td",
+          "awslogs-region"             = "us-east-1",
+          "awslogs-stream-prefix"      = "ecs",
+        },
+        "secretOptions" = [],
+      },
+    },
+  ])
+
+  # Additional attributes (if needed)
 }
+
 
 resource "aws_ecs_service" "game-app-service" {
   name            = "game-app-service"
