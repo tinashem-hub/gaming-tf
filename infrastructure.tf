@@ -18,13 +18,14 @@ data "template_file" "ecs_task_definition" {
 resource "aws_ecs_task_definition" "game-app-service" {
   family                   = "gaming-Td"
   network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]  # Update if using EC2 launch type
+  requires_compatibilities = ["FARGATE"]
 
   container_definitions = jsonencode([
     {
       "name"            = "gaming",
       "image"           = "954354975057.dkr.ecr.us-east-1.amazonaws.com/gaming",
-      "cpu"             = 0,
+      "cpu"             = 256,
+      "memory"          = 512,  # Add this line to specify the memory allocation
       "portMappings"    = [
         {
           "name"          = "gaming-80-tcp",
@@ -55,6 +56,7 @@ resource "aws_ecs_task_definition" "game-app-service" {
 
   # Additional attributes (if needed)
 }
+
 
 
 resource "aws_ecs_service" "game-app-service" {
