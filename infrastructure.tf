@@ -15,6 +15,10 @@ data "template_file" "ecs_task_definition" {
   template = file("${path.module}/.github/workflows/task_defination.json")
 }
 
+provider "aws" {
+  region = "us-east-1"  # Replace with your desired AWS region
+}
+
 resource "aws_ecs_task_definition" "game-app-service" {
   family                   = "gaming-Td"
   network_mode             = "awsvpc"
@@ -24,8 +28,8 @@ resource "aws_ecs_task_definition" "game-app-service" {
     {
       "name"            = "gaming",
       "image"           = "954354975057.dkr.ecr.us-east-1.amazonaws.com/gaming",
-      "cpu"             = 256,
-      "memory"          = 512,  # Add this line to specify the memory allocation
+      "cpu"             = 256,  # Adjust as needed
+      "memory"          = 512,
       "portMappings"    = [
         {
           "name"          = "gaming-80-tcp",
@@ -55,9 +59,10 @@ resource "aws_ecs_task_definition" "game-app-service" {
   ])
 
   # Additional attributes (if needed)
+  execution_role_arn = "arn:aws:iam::954354975057:role/GitHub-demo"
+  task_role_arn      = "arn:aws:iam::954354975057:role/GitHub-demo"
+  tags               = {}  # Add tags as needed
 }
-
-
 
 resource "aws_ecs_service" "game-app-service" {
   name            = "game-app-service"
