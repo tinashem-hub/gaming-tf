@@ -10,7 +10,7 @@ resource "aws_ecs_cluster" "gaming-cluster" {
   name = "gaming-cluster"
 }
 
-resource "aws_ecs_task_definition" "my_task" {
+resource "aws_ecs_task_definition" "gaming-Td" {
   family                   = "gaming-Td"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -21,9 +21,9 @@ resource "aws_ecs_task_definition" "my_task" {
 }
 
 resource "aws_ecs_service" "my_service" {
-  name            = "your-service-name"
-  cluster         = aws_ecs_cluster.my_cluster.id
-  task_definition = aws_ecs_task_definition.my_task.arn
+  name            = "game-app-service"
+  cluster         = aws_ecs_cluster.gaming-cluster.id
+  task_definition = aws_ecs_task_definition.gaming-Td.arn
   launch_type     = "FARGATE"
 
   network_configuration {
