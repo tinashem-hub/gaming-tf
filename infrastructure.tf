@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "gaming-Td" {
 
   execution_role_arn = "arn:aws:iam::954354975057:role/GitHub-demo"
 
-  container_definitions = file("./.github/workflows/task_defination.json")
+  container_definitions = file("${path.module}/task_defination.json")
 }
 
 resource "aws_ecs_service" "my_service" {
