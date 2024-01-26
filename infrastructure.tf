@@ -25,6 +25,8 @@ resource "aws_ecs_task_definition" "gaming-Td" {
     content {
       key   = debug.key
       value = file("${path.module}/task_defination.json")[debug.key]
+    }
+  }
 }
 
 resource "aws_ecs_service" "my_service" {
