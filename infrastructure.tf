@@ -18,6 +18,13 @@ resource "aws_ecs_task_definition" "gaming-Td" {
   execution_role_arn = "arn:aws:iam::954354975057:role/GitHub-demo"
 
   container_definitions = file("${path.module}/task_defination.json")
+
+  # Debugging output
+  dynamic "debug" {
+    for_each = toset(keys(file("${path.module}/task_defination.json")))
+    content {
+      key   = debug.key
+      value = file("${path.module}/task_defination.json")[debug.key]
 }
 
 resource "aws_ecs_service" "my_service" {
