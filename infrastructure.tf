@@ -19,14 +19,6 @@ resource "aws_ecs_task_definition" "gaming-Td" {
 
   container_definitions = file("${path.module}/task_defination.json")
 
-  # Debugging output
-  dynamic "debug" {
-    for_each = toset(keys(file("${path.module}/task_defination.json")))
-    content {
-      key   = debug.key
-      value = file("${path.module}/task_defination.json")[debug.key]
-    }
-  }
 }
 
 resource "aws_ecs_service" "my_service" {
