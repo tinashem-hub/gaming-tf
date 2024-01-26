@@ -9,7 +9,7 @@ env:
   ECR_REPOSITORY: gaming           # set this to your Amazon ECR repository name
   ECS_SERVICE: game-app-service                # set this to your Amazon ECS service name
   ECS_CLUSTER: gaming-cluster                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: ./.github/workflows/task_defination.json # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: task_defination.json # set this to the path to your Amazon ECS task definition
   CONTAINER_NAME: gaming          # set this to the name of the container in the
   TERRAFORM_ACTION: apply          # set this to "apply" to trigger Terraform apply
                                                # containerDefinitions section of your task definition
